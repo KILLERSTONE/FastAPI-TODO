@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FastApi To-Do application</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+          }
+    
+          .ui.container {
+            display: block;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 255px rgba(0, 0, 0, 0.5);
+          }
+    
+          h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+          }
+    
+          .todo-form {
+            display: block;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+    
+          .field {
+            margin: auto;
+            width: 75%;
+            padding: 10px;
+          }
+    
+          .field label {
+            display: block;
+            margin-bottom: 5px;
+          }
+    
+          .field input[type="text"] {
+            width: 75%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+          }
+    
+          .submitTask {
+            margin: auto;
+            border: 1px solid red;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+          }
+    
+          .submitTask:hover {
+            background-color: #3e8e41;
+          }
+    
+          div {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+          }
+          p {
+            font-size: 16px;
+            margin: 0;
+          }
+    
+          .ui.gray.label {
+            background-color: #ddd;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-right: 10px;
+          }
+    
+          .ui.green.label {
+            background-color: #4CAF50;
+            color: #fff;
+          }
+    
+          a.submitTask, a.removeTask {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+          }
+    
+          a.submitTask {
+            background-color: #2196F3;
+            color: #fff;
+
+        }
+    
+          a.submitTask:hover {
+            background-color: #0b7dda;
+          }
+    
+          a.removeTask {
+            background-color: #f44336;
+            color: #fff;
+          }
+    
+          a.removeTask:hover {
+            background-color: #da190b;
+          }
+
+          span{
+            margin: 0 auto;
+            padding: 20px;  
+        }
+        #add{
+            margin-top:20px;
+            margin-left: 500px;
+            padding: 10px 20px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+  </head>
+  <body>
+    <div style="margin-top: 50px" class="ui container">
+      <h1>FastApi To-Do application</h1>
+
+      <form class="todo-form" action="/add" method="post">
+        <div class="field">
+          <label>What To Do?</label><br />
+          <input type="text" name="title" placeholder="Enter Task to do..." />
+          <br />
+        </div>
+        <button class="submitTask" type="submit" id="add">Add</button>
+      </form>
+
+      {% for todo in todo_list %}
+      <div>
+        <p>{{ todo.id }} -> {{ todo.title }}</p>
+
+        {% if todo.complete == False %}
+        <span>          &#10062; Not done</span>
+        {% else %}
+        <span >         &#9989; Done</span>
+        {% endif %}
+
+        <a class="submitTask" href="/update/{{ todo.id }}">Update</a>
+        <a class="removeTask" href="/delete/{{ todo.id }}">Delete</a>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>
